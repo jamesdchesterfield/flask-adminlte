@@ -4,7 +4,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField
+from wtforms import StringField, PasswordField, SubmitField
 from wtforms.validators import Email, DataRequired
 
 # login and registration
@@ -31,6 +31,6 @@ class CreateAccountForm(FlaskForm):
                              validators=[DataRequired()])
 
 class LockScreenForm(FlaskForm):
-    password = StringField('Password',
-                        id='pwd_create',
+    password = PasswordField('Password',
                         validators=[DataRequired()])
+    submit = SubmitField('Unlock')

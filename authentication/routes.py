@@ -53,31 +53,29 @@ def login():
                                form=login_form)
     return redirect(url_for('home_blueprint.index'))
 
+
 @blueprint.route('/lockscreen', methods=['GET', 'POST'])
 def lockscreen():
     lockscreen_form = LockScreenForm(request.form)
-    if 'login' in request.form:
+   
+    if request.method == "POST":
+        password = request.form.get('password')
+        user = current_user
+ 
+    #if 'unlock' in request.form:
+        #password = request.form['password']
+        #user = current_user  # Get the currently logged-in user
 
-        # read form data
-        username = request.form['username']
-        password = request.form['password']
-
-        # Locate user
-        user = Users.query.filter_by(username=username).first()
-
-        # Check the password
+        # Verify if the entered password is correct
         if user and verify_pass(password, user.password):
-            
-            login_user(user)
-            return redirect(url_for('authentication_blueprint.route_default'))
+            return redirect(url_for('home_blueprint.index'))  # Redirect back to dashboard
+            print("got here")
+            #return redirect(url_for('authentication_blueprint.route_default'))
 
-        # Something (user or pass) is not ok
-        return render_template('home/examples-lockscreen.html', msg='Wrong user or password', form=lockscreen_form)
+        return render_template('home/examples-lockscreen.html',
+                               form=lockscreen_form)
 
-    if not current_user.is_authenticated:
-        return render_template('home/examples-lockscreen.html', form=lockscreen_form)
-
-    return redirect(url_for('home_blueprint.index'))
+    return render_template('home/examples-lockscreen.html', form=lockscreen_form)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])

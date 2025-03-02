@@ -35,13 +35,12 @@
       <!-- /.lockscreen-image -->
 
       <!-- lockscreen credentials (contains the form) -->
-      <form class="lockscreen-credentials">
+      <form action="/lockscreen" method="POST" class="lockscreen-credentials">
         <div class="input-group">
-          <!--<input type="password" class="form-control" placeholder="password">-->
-          {{ form.password(placeholder="Password", class="form-control", type="password") }}
+          <input type="password" name="password" class="form-control" placeholder="Enter password">
 
           <div class="input-group-append">
-            <button type="button" class="btn">
+            <button type="button" name="unlock" class="btn">
               <i class="fas fa-arrow-right text-muted"></i>
             </button>
           </div>
